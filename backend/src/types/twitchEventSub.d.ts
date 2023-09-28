@@ -3,6 +3,7 @@ interface EventSub_Sub {
   version: string;
   condition: {
     broadcaster_user_id?: string;
+    moderator_user_id?: string;
     from_broadcaster_user_id?: string;
     to_broadcaster_user_id?: string;
     reward_id?: string;

@@ -12,7 +12,7 @@ import twitchEmotes from './twitch';
 
 const cheermoteReg = /^(\D*)(\d+)$/;
 
-export async function init() {
+export async function fetch() {
   try {
     logger.debug('caching ffz emotes');
     await ffzEmotes.fetch();
@@ -27,6 +27,8 @@ export async function init() {
     logger.debug('caching twitch channel cheermotes');
     await cheermotes.fetch();
   } catch (e) {}
+
+  setTimeout(fetch, 1000 * 60 * 60);
 }
 
 const emotesToSkip = ['Hey', 'Happy'];

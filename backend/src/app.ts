@@ -12,7 +12,7 @@ import * as twitchPolling from './twitch/twitch_polling';
 async function start(): Promise<void> {
   await appToken.init();
   await database.connect();
-  await emotes.init();
+  await emotes.fetch();
   twitchEmoteTimer.start();
   await streamelements.init();
   await twitchIrc.connect();

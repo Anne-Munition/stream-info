@@ -16,13 +16,8 @@ const requiredScopes = [
   // 'moderator:read:followers',
 ];
 
-interface Keys {
-  access_token: string;
-  client_id: string;
-}
-
 let validToken = false;
-let keys: Keys;
+let keys: AWSKeys;
 let channel: string;
 let id: string;
 
@@ -30,7 +25,7 @@ export function isValid(): boolean {
   return validToken;
 }
 
-export function getKeys(): Keys {
+export function getKeys(): AWSKeys {
   return keys;
 }
 
@@ -48,13 +43,13 @@ export function getScopes(): string[] {
 
 let timer: NodeJS.Timeout;
 function startTimer(): void {
-  timer = setTimeout(validate, 1000 * 60 * 60);
+  timer = setInterval(validate, 1000 * 60 * 60);
 }
 
 export async function validate(): Promise<void> {
   logger.debug('checking token validity');
   if (timer) clearTimeout(timer);
-  let awsKeys: Keys;
+  let awsKeys: AWSKeys;
   if (process.env.NODE_ENV === 'production') {
     awsKeys = await getAWSKeys();
   } else {
@@ -104,7 +99,7 @@ export function hasScopes(scopes: string[]): boolean {
   return true;
 }
 
-async function getAWSKeys(): Promise<Keys> {
+async function getAWSKeys(): Promise<AWSKeys> {
   logger.debug('getting keys from aws');
   return axios
     .get(process.env.TOKEN_AWS_URL, {

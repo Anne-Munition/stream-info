@@ -210,3 +210,15 @@ interface TwitchGame {
 }
 
 type LiveSub = TwitchStream & TwitchGame;
+
+interface TwitchUserToken {
+  access_token: string;
+  refresh_token: string;
+  scope: string[];
+  token_type: 'bearer';
+}
+
+interface AWSKeys {
+  access_token: string;
+  client_id: string;
+}

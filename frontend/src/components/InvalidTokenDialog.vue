@@ -34,7 +34,7 @@ const store = useStore();
 const showDialog = computed(() => !store.state.tokenValid);
 
 function renewToken() {
-  // window.location.href = '/api/auth/login';
+  window.location.href = '/api/auth/token/renew';
 }
 </script>
 

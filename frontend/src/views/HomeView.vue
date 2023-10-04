@@ -1,4 +1,5 @@
 <template>
+  <InvalidTokenDialog />
   <div id="column-container">
     <div class="column">
       <div>
@@ -62,6 +63,7 @@ import * as socket from '@/plugins/socket.io';
 import { overflow } from '@/plugins/utils';
 import { useStore } from '@/store';
 import { Item } from '@/types/lists';
+import InvalidTokenDialog from '@/components/InvalidTokenDialog.vue';
 
 const store = useStore();
 

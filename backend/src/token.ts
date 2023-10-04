@@ -1,5 +1,6 @@
 import axios from 'axios';
 import logger from './logger';
+import { emit } from './server/socket.io';
 import twitchApi from './twitch/twitch_api';
 
 const requiredScopes = [
@@ -12,6 +13,7 @@ const requiredScopes = [
   'chat:read',
   'clips:edit',
   'moderation:read',
+  // 'moderator:read:followers',
 ];
 
 interface Keys {
@@ -52,25 +54,27 @@ function startTimer(): void {
 export async function validate(): Promise<void> {
   logger.debug('checking token validity');
   if (timer) clearTimeout(timer);
-  const awsKeys: Keys = await getAWSKeys();
-  // if (process.env.NODE_ENV === 'production') {
-  //awsKeys = await getAWSKeys();
-  //} else {
-  //   awsKeys = {
-  //    client_id: process.env.TWITCH_CLIENT_ID,
-  //   access_token: process.env.DEV_ACCESS_TOKEN,
-  //  };
-  // }
+  let awsKeys: Keys;
+  if (process.env.NODE_ENV === 'production') {
+    awsKeys = await getAWSKeys();
+  } else {
+    awsKeys = {
+      client_id: process.env.TWITCH_CLIENT_ID,
+      access_token: process.env.DEV_ACCESS_TOKEN,
+    };
+  }
   await twitchApi
     .validateToken(awsKeys.access_token)
     .then(({ scopes, login, user_id }) => {
-      logger.debug('token is valid');
       if (hasScopes(scopes)) {
+        logger.debug('Twitch token is valid');
         id = user_id;
         channel = login;
         keys = awsKeys;
         validToken = true;
+        emit('tokenValid', true);
       } else {
+        logger.debug('Twitch token is missing scopes!');
         setInvalid();
       }
     })
@@ -87,7 +91,7 @@ export async function validate(): Promise<void> {
 
 function setInvalid(): void {
   validToken = false;
-  // TODO: message client that token is invalid? socket
+  emit('tokenValid', false);
 }
 
 export function hasScopes(scopes: string[]): boolean {

@@ -22,6 +22,7 @@ export interface RootState {
   now?: {
     now: number;
   };
+  tokenValid: boolean;
 }
 
 const timers: { [key: string]: NodeJS.Timeout } = {};
@@ -38,6 +39,8 @@ export const store = createStore<RootState>({
     raids: [],
     subscriptions: [],
     tips: [],
+
+    tokenValid: true,
   },
   mutations: {
     setAppState(state, payload: AppState) {
@@ -121,6 +124,9 @@ export const store = createStore<RootState>({
         unclearedTips,
       );
       uncleared.forEach((x: Item) => (x.cleared = true));
+    },
+    SOCKET_tokenValid(state, payload: boolean): void {
+      state.tokenValid = payload;
     },
   },
   actions: {

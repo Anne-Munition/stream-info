@@ -1,4 +1,4 @@
-import { Raid } from '@/types/events';
+import type { Raid } from '../types/events';
 
 const raid: Raid = {
   _id: '628409017c193b2218d31a4a',

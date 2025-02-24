@@ -1,4 +1,4 @@
-import { Sub } from '@/types/events';
+import type { Sub } from '../types/events';
 
 const sub: Sub = {
   _id: '628a7e3a7c193b2218d32815',

@@ -1,4 +1,4 @@
-import { Sub } from '@/types/events';
+import type { Sub } from '../types/events';
 
 const prepaid: Sub = {
   _id: '631ac92f2b3ba9373ac73ea6',

@@ -61,7 +61,7 @@ import api from '@/plugins/axios';
 import * as socket from '@/plugins/socket.io';
 import { overflow } from '@/plugins/utils';
 import { useStore } from '@/store';
-import { Item } from '@/types/lists';
+import type { Item } from '../types/lists';
 
 const store = useStore();
 

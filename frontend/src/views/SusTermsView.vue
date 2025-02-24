@@ -105,7 +105,7 @@ import anneSus from '@/assets/images/anneSus.png';
 import HomeButton from '@/components/HomeButton.vue';
 import api from '@/plugins/axios';
 import * as toasts from '@/plugins/toasts';
-import { Term } from '@/types/terms';
+import type { Term } from '../types/terms';
 
 const terms = ref([] as Term[]);
 const selectedTerm = ref({} as Term);

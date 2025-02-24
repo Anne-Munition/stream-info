@@ -24,7 +24,7 @@ import { computed } from 'vue';
 import cake from '@/assets/images/cake.svg';
 import subComputed from '@/plugins/sub_computed';
 import { useStore } from '@/store';
-import { Sub } from '@/types/events';
+import type { Sub } from '../../types/events';
 
 const store = useStore();
 

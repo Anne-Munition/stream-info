@@ -23,7 +23,7 @@ import { computed } from 'vue';
 import EventCard from './EventCard.vue';
 import { displayName } from '@/plugins/utils';
 import { useStore } from '@/store';
-import { Raid } from '@/types/events';
+import type { Raid } from '../types/events';
 
 const store = useStore();
 

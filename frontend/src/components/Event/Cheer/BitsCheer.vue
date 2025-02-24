@@ -14,7 +14,7 @@ import { computed } from 'vue';
 import EventCard from '../EventCard.vue';
 import { displayName } from '@/plugins/utils';
 import { useStore } from '@/store';
-import { Cheer, CheerUserState } from '@/types/events';
+import type { Cheer, CheerUserState } from '../../types/events';
 
 const store = useStore();
 

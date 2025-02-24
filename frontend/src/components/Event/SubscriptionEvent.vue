@@ -29,7 +29,7 @@ import SubFooter from './Subscription/SubFooter.vue';
 import SubGift from './Subscription/SubGift.vue';
 import SubResub from './Subscription/SubResub.vue';
 import { useStore } from '@/store';
-import { Sub } from '@/types/events';
+import type { Sub } from '../types/events';
 
 const store = useStore();
 

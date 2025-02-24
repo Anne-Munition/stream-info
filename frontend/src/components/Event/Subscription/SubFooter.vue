@@ -19,7 +19,7 @@ import giftIcon from '@/assets/images/gift-icon.png';
 import prime from '@/assets/images/prime.png';
 import tier2 from '@/assets/images/tier2.png';
 import tier3 from '@/assets/images/tier3.png';
-import { UserState } from '@/types/events';
+import type { UserState } from '../../types/events';
 
 const props = defineProps<{
   userstate: UserState;

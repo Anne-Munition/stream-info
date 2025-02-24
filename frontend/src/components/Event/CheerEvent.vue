@@ -7,7 +7,7 @@
 import { computed } from 'vue';
 import BitsCheer from './Cheer/BitsCheer.vue';
 import HypeChat from './Cheer/HypeChat.vue';
-import { Cheer, HypeChatUserState } from '@/types/events';
+import type { Cheer, HypeChatUserState } from '../types/events';
 
 const props = defineProps<{
   data: Cheer;

@@ -1,4 +1,4 @@
-import { Sub } from '@/types/events';
+import type { Sub } from '../types/events';
 
 export const paidUpgrade: Sub = {
   _id: '628c61dbfcbe884aa7c627dc',

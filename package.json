@@ -4,9 +4,5 @@
   "repository": "https://github.com/dbkynd/streaminfo.git",
   "author": "DBKynd <db@dbkynd.com>",
   "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "./backend",
-    "./frontend"
-  ]
+  "private": true
 }

@@ -220,7 +220,7 @@ import HomeButton from '@/components/HomeButton.vue';
 import examples from '@/examples';
 import api from '@/plugins/axios';
 import { useStore } from '@/store';
-import { UserSettingKeys } from '@/types/state';
+import type { UserSettingKeys } from '../types/state';
 
 const store = useStore();
 

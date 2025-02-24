@@ -20,7 +20,7 @@ import getSymbolFromCurrency from 'currency-symbol-map';
 import { computed } from 'vue';
 import EventCard from '../EventCard.vue';
 import { useStore } from '@/store';
-import { Cheer, HypeChatUserState } from '@/types/events';
+import type { Cheer, HypeChatUserState } from '../../types/events';
 
 const store = useStore();
 

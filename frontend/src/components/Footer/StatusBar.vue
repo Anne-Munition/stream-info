@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from '@/store';
-import { Roomstate, AppState } from '@/types/state';
+import type { Roomstate, AppState } from '../types/state';
 
 const store = useStore();
 

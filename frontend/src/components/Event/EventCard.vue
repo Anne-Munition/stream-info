@@ -15,7 +15,7 @@
 import { computed } from 'vue';
 import Timestamp from '../TimeStamp.vue';
 import Message from '../UserMessage.vue';
-import { Event, MessagePayload } from '@/types/events';
+import type { Event, MessagePayload } from '../types/events';
 
 const props = defineProps<{
   data: Event;

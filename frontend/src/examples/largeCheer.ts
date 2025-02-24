@@ -1,4 +1,4 @@
-import { Cheer } from '@/types/events';
+import type { Cheer } from '../types/events';
 
 const largeCheer: Cheer = {
   _id: '6313877db7e5fe37af30e3ed',

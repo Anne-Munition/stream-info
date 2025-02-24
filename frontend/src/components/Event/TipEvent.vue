@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import EventCard from './EventCard.vue';
-import { Tip } from '@/types/events';
+import type { Tip } from '../types/events';
 
 const props = defineProps<{
   data: Tip;

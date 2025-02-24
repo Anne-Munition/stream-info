@@ -1,4 +1,4 @@
-import { Sub } from '@/types/events';
+import type { Sub } from '../types/events';
 
 const massGift: Sub = {
   _id: '628bb6eaddb4296c6c26f78e',

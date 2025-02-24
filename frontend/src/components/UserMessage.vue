@@ -15,7 +15,7 @@
 import { decode } from 'html-entities';
 import { computed } from 'vue';
 import Emote from './EmoteImg.vue';
-import { MessagePayload } from '@/types/events';
+import type { MessagePayload } from '../../types/events';
 
 const props = defineProps<{
   payload: MessagePayload;

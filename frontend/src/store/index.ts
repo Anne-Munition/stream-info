@@ -1,11 +1,11 @@
-import { InjectionKey } from 'vue';
+import type { InjectionKey } from 'vue';
 import { createStore, Store, useStore as baseUseStore } from 'vuex';
 import VuexNow from 'vuex-now';
 import api from '../plugins/axios';
 import * as toasts from '../plugins/toasts';
-import { Tip, Cheer, Raid, Sub } from '@/types/events';
-import { Item, ListNames } from '@/types/lists';
-import { Roomstate, AppState, UserSettings } from '@/types/state';
+import type { Tip, Cheer, Raid, Sub } from '../types/events';
+import type { Item, ListNames } from '../types/lists';
+import type { Roomstate, AppState, UserSettings } from '..//types/state';
 
 const now = VuexNow(1000 * 60);
 const maxArraySize = 200;

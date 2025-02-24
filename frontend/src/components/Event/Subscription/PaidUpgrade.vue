@@ -20,7 +20,7 @@ import { computed } from 'vue';
 import subComputed from '@/plugins/sub_computed';
 import { displayName } from '@/plugins/utils';
 import { useStore } from '@/store';
-import { Sub } from '@/types/events';
+import type { Sub } from '../../types/events';
 
 const store = useStore();
 

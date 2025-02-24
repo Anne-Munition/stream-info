@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from '@/store';
-import { Emote } from '@/types/events';
+import type { Emote } from '../../types/events';
 
 const store = useStore();
 

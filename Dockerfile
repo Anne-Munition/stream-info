@@ -33,7 +33,7 @@ RUN pnpm prettier && \
 
 FROM base
 ENV NODE_ENV=production
-COPY --from=backend_production_dependencies /app/node_modules ./node_modules
+COPY --from=backend_production_dependencies /app/backend/node_modules ./node_modules
 COPY --from=backend_builder /app/backend/dist ./backend/dist
 COPY --from=frontend_builder /app/frontend/dist ./frontend/dist
 

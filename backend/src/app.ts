@@ -8,6 +8,7 @@ import * as appToken from './twitch/twitch_app_token';
 import eventSub from './twitch/twitch_eventsub';
 import * as twitchIrc from './twitch/twitch_irc';
 import * as twitchPolling from './twitch/twitch_polling';
+import './reddit';
 
 async function start(): Promise<void> {
   await appToken.init();

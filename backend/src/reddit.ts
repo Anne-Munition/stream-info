@@ -45,11 +45,6 @@ submissions.on('item', async (post) => {
         content: message,
       });
 
-    if (process.env.DISCORD_REDDIT_URL2)
-      await axios.post(process.env.DISCORD_REDDIT_URL2, {
-        content: message,
-      });
-
     logger.info(`Posted Reddit to Discord: ${post.title}`);
   } catch (err) {
     logger.error('Failed to send Reddit post message to Discord', err);

@@ -23,13 +23,17 @@ const submissions = new SubmissionStream(r, {
 submissions.on('item', async (post) => {
   if (post.author.name.toLowerCase() !== 'annemunition') return;
 
-  const isLiveStream = post.link_flair_text?.includes('livestream');
+  const isLiveStream = post.link_flair_text?.includes(':broadcast:');
   const mentionedRoleId = isLiveStream ? goLiveNotificationsRoleId : socialNotificationsRoleId;
+  const headerText = isLiveStream
+    ? '**AnneMunition** just went live!'
+    : 'New post by **AnneMunition**:';
 
   try {
     const message =
-      `<@&${mentionedRoleId}> New post by AnneMunition: ${post.title}\n` +
-      `Link: https://reddit.com${post.permalink}`;
+      `<@&${mentionedRoleId}> ${headerText}\n` +
+      `${post.title}\n` +
+      `https://reddit.com${post.permalink}`;
 
     if (process.env.DISCORD_REDDIT_URL)
       await axios.post(process.env.DISCORD_REDDIT_URL, {

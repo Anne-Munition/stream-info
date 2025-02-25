@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { SubmissionStream } from 'snoostorm';
 import Snoowrap from 'snoowrap';
+import RedditPostService from './database/lib/reddit_post';
 import logger from './logger';
 
 const socialNotificationsRoleId = '1343660317841948694';
@@ -22,6 +23,10 @@ const submissions = new SubmissionStream(r, {
 
 submissions.on('item', async (post) => {
   if (post.author.name.toLowerCase() !== 'annemunition') return;
+
+  const alreadyPosted = await RedditPostService.has(post.id);
+  if (alreadyPosted) return;
+  await RedditPostService.add(post.id);
 
   const isLiveStream = post.link_flair_text?.includes(':broadcast:');
   const mentionedRoleId = isLiveStream ? goLiveNotificationsRoleId : socialNotificationsRoleId;

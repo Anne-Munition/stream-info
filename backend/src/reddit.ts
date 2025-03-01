@@ -28,7 +28,9 @@ submissions.on('item', async (post) => {
   if (alreadyPosted) return;
   await RedditPostService.add(post.id);
 
-  const isLiveStream = post.link_flair_text?.includes(':broadcast:');
+  const isLiveStream =
+    post.link_flair_text?.includes(':broadcast:') ||
+    post.selftext?.toLowerCase().includes('twitch.tv/annemunition');
   const mentionedRoleId = isLiveStream ? goLiveNotificationsRoleId : socialNotificationsRoleId;
   const headerText = isLiveStream
     ? '**AnneMunition** just went live!'

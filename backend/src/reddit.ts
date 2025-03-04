@@ -35,13 +35,11 @@ submissions.on('item', async (post) => {
   const headerText = isLiveStream
     ? '**AnneMunition** just went live!'
     : 'New post by **AnneMunition**:';
+  const shortUrl = `https://redd.it/${post.id}`;
+
+  const message = `<@&${mentionedRoleId}> ${headerText}\n${post.title}\n${shortUrl}`;
 
   try {
-    const message =
-      `<@&${mentionedRoleId}> ${headerText}\n` +
-      `${post.title}\n` +
-      `https://reddit.com${post.permalink}`;
-
     if (process.env.DISCORD_REDDIT_URL)
       await axios.post(process.env.DISCORD_REDDIT_URL, {
         content: message,

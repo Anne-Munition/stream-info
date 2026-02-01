@@ -23,6 +23,7 @@ const submissions = new SubmissionStream(r, {
 
 submissions.on('item', async (post) => {
   if (post.author.name.toLowerCase() !== 'annemunition') return;
+  if (post.created_utc * 1000 < Date.now() - 10 * 60 * 1000) return; // Ignore posts older than 10 minutes
 
   const alreadyPosted = await RedditPostService.has(post.id);
   if (alreadyPosted) return;

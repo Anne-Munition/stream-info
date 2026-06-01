@@ -234,9 +234,7 @@ onMounted(() => {
         store.commit('setSettings', data);
         loading.value = false;
       })
-      .catch(() => {
-        window.location.href = '/api/auth/login';
-      });
+      .catch(() => undefined);
   } else {
     loading.value = false;
   }

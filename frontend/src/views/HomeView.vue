@@ -90,9 +90,7 @@ onMounted(() => {
       store.commit('setSettings', data);
       socket.connect();
     })
-    .catch(() => {
-      window.location.href = '/api/auth/login';
-    });
+    .catch(() => undefined);
 });
 
 onUnmounted(() => {

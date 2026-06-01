@@ -7,6 +7,7 @@ interface ApplicationState {
   twitchIrc?: boolean;
   onFrontPage?: boolean;
   raidmode?: boolean;
+  tokenInvalid?: boolean;
 }
 
 let appState: ApplicationState = {
@@ -14,6 +15,7 @@ let appState: ApplicationState = {
   twitchIrc: false,
   onFrontPage: false,
   raidmode: false,
+  tokenInvalid: false,
 };
 let roomstate: tmi.RoomState = {};
 

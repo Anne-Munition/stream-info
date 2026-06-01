@@ -4,6 +4,7 @@ import LogoutView from '@/views/LogoutView.vue';
 import NotFoundView from '@/views/NotFound.vue';
 import SettingsView from '@/views/SettingsView.vue';
 import SusTermsView from '@/views/SusTermsView.vue';
+import ReauthView from '@/views/ReauthView.vue';
 import UnauthorizedView from '@/views/UnauthorizedView.vue';
 
 const router = createRouter({
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/logout',
       name: 'Logout',
       component: LogoutView,
+    },
+    {
+      path: '/reauth',
+      name: 'Reauth',
+      component: ReauthView,
     },
     {
       path: '/settings',

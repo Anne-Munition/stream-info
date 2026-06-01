@@ -1,6 +1,6 @@
 import { Store } from 'vuex';
 import { displayName } from './utils';
-import { RootState } from '@/store';
+import type { RootState } from '@/store';
 import type { UserState } from '../types/events';
 
 export default (userstate: UserState, store: Store<RootState>) => {

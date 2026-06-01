@@ -12,6 +12,7 @@ export interface AppState {
   twitchIrc?: boolean;
   seWs?: boolean;
   raidmode?: boolean;
+  tokenInvalid?: boolean;
   [key: string]: boolean;
 }
 

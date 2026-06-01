@@ -3,7 +3,7 @@ import express from 'express';
 // import helmet from 'helmet';
 import morgan from 'morgan';
 import { emotesDir } from '../directories';
-import * as logger from '../logger';
+import logger, { stream } from '../logger';
 import passport from './passport';
 import Api from './routes';
 import sessionStore from './sessionStore';
@@ -15,8 +15,9 @@ const app = express();
     contentSecurityPolicy: false, // TODO: figure out specifics for VUE
   }),
 );*/
+
 const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
-app.use(morgan(format, { stream: logger.stream }));
+app.use(morgan(format, { stream: stream }));
 app.use(express.json());
 
 // @ts-ignore
@@ -27,6 +28,21 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api', Api);
+
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (err?.code === 'TWITCH_TOKEN_INVALID') {
+    res.status(401).json({
+      code: err.code,
+      message: 'Twitch broadcaster token is invalid. Reauthorization required.',
+    });
+    return;
+  }
+
+  logger.error(err?.stack || err?.message || err);
+  res.status(err?.status || 500).json({
+    message: err?.message || 'Internal Server Error',
+  });
+});
 
 app.use('/emotes', express.static(emotesDir));
 

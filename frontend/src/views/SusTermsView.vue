@@ -124,9 +124,7 @@ onMounted(() => {
     .then(({ data }) => {
       terms.value = data;
     })
-    .catch(() => {
-      window.location.href = '/api/auth/login';
-    })
+    .catch(() => undefined)
     .finally(() => {
       loading.value = false;
     });

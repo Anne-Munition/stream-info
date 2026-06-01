@@ -9,6 +9,7 @@
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "types": ["node", "jest"],
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,

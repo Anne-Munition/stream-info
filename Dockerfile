@@ -1,19 +1,19 @@
-FROM node:lts-alpine3.18 AS base
+FROM node:lts-alpine3.22 AS base
 RUN apk add --no-cache graphicsmagick git
 WORKDIR /app
 
 FROM base AS pnpm_base
 RUN npm install --global corepack@latest
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY ./backend/package.json ./backend/
 COPY ./frontend/package.json ./frontend/
 
-FROM pnpm_base AS pnpm_dev
-RUN pnpm install
-
 FROM pnpm_base AS pnpm_prod
-RUN pnpm install --prod
+RUN pnpm install --prod --frozen-lockfile
+
+FROM pnpm_base AS pnpm_dev
+RUN pnpm install --frozen-lockfile
 
 FROM pnpm_dev AS backend_builder
 WORKDIR /app/backend

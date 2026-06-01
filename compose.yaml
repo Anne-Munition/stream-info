@@ -1,0 +1,9 @@
+services:
+  app:
+    image: ghcr.io/anne-munition/stream-info:latest
+    container_name: stream-info
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${LOG_PATH}:/app/logs:rw

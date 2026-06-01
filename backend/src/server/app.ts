@@ -20,6 +20,10 @@ const format = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 app.use(morgan(format, { stream: stream }));
 app.use(express.json());
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // @ts-ignore
 app.use(sessionStore);
 // @ts-ignore

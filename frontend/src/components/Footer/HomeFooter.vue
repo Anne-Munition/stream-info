@@ -46,7 +46,7 @@
         </v-col>
       </v-row>
       <HomeFooterCard><HoursTracking /></HomeFooterCard>
-      <HomeFooterCard><ChatToggles /></HomeFooterCard>
+     <!-- <HomeFooterCard><ChatToggles /></HomeFooterCard> -->
       <HomeFooterCard><ActionRow /></HomeFooterCard>
     </v-container>
   </v-footer>
@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import ActionRow from './ActionRow.vue';
-import ChatToggles from './ChatToggles.vue';
+// import ChatToggles from './ChatToggles.vue';
 import HomeFooterCard from './HomeFooterCard.vue';
 import HoursTracking from './HoursTracking.vue';
 import MultiButton from './MultiButton.vue';

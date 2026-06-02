@@ -14,18 +14,30 @@
           </div>
 
           <div class="art-card">
-            <v-img class="art-image" :src="peepoHey" alt="peepoHey" height="190" contain />
+            <v-img
+              class="art-image"
+              :src="peepoHey"
+              alt="peepoHey"
+              height="190"
+              contain
+            />
           </div>
         </div>
 
         <div class="details">
           <div class="detail-item">
             <span class="detail-label">Why this happened</span>
-            <span class="detail-value">The token is expired, revoked, or missing required scope approval.</span>
+            <span class="detail-value"
+              >The token is expired, revoked, or missing required scope
+              approval.</span
+            >
           </div>
           <div class="detail-item">
             <span class="detail-label">What reauth does</span>
-            <span class="detail-value">It sends you through Twitch login and stores the updated broadcaster token on return.</span>
+            <span class="detail-value"
+              >It sends you through Twitch login and stores the updated
+              broadcaster token on return.</span
+            >
           </div>
         </div>
         <div v-if="route.query.error" class="error-banner" role="alert">
@@ -66,7 +78,11 @@ function reauth() {
 }
 
 .reauth-copy {
-  background: linear-gradient(180deg, rgba(43, 45, 49, 0.96), rgba(24, 25, 28, 0.96));
+  background: linear-gradient(
+    180deg,
+    rgba(43, 45, 49, 0.96),
+    rgba(24, 25, 28, 0.96)
+  );
   border: 1px solid rgba(249, 215, 26, 0.2);
   border-radius: 22px;
   box-shadow: 0 20px 56px rgba(0, 0, 0, 0.32);

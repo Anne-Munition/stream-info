@@ -10,12 +10,20 @@ logger.info('Validating token');
 
 let _app: { stop: () => Promise<void>; start: () => Promise<void> };
 
+async function loadApp(): Promise<{ stop: () => Promise<void>; start: () => Promise<void> }> {
+  return (
+    (await import('./app.js')) as unknown as {
+      default: { stop: () => Promise<void>; start: () => Promise<void> };
+    }
+  ).default;
+}
+
 // Don't start the rest of the app until we get the twitch token init data
 token
   .validate()
-  .then(() => import('./app'))
+  .then(loadApp)
   .then((app) => {
-    _app = app.default;
+    _app = app;
     return _app.start();
   })
   .then(() => {

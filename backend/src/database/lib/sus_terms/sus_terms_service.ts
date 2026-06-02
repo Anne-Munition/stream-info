@@ -11,7 +11,7 @@ async function create(body: any): Promise<SusTermDoc> {
 }
 
 async function remove(id: string): Promise<void> {
-  await SusTerm.findByIdAndRemove(id);
+  await SusTerm.findByIdAndDelete(id);
 }
 
 async function update(id: string, body: any): Promise<void> {

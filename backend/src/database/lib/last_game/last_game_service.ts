@@ -5,7 +5,7 @@ async function list(): Promise<LastGameDoc[]> {
 }
 
 async function remove(id: string): Promise<void> {
-  await LastGame.findByIdAndRemove(id);
+  await LastGame.findByIdAndDelete(id);
 }
 
 async function add(id: string, name: string): Promise<void> {

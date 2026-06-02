@@ -1,5 +1,7 @@
 import TwitchUser, { TwitchUserDoc } from './twitch_user_model';
 
+type TwitchUserDocument = InstanceType<typeof TwitchUser>;
+
 async function find(identities: string[]): Promise<TwitchUserDoc[]> {
   const names: string[] = [];
   const ids: string[] = [];
@@ -14,11 +16,11 @@ async function find(identities: string[]): Promise<TwitchUserDoc[]> {
   return TwitchUser.find().or([{ twitchId: { $in: ids } }, { twitchName: { $in: names } }]);
 }
 
-function create(users: TwitchUser[]): TwitchUserDoc[] {
+function create(users: TwitchUser[]): TwitchUserDocument[] {
   return users.map((x) => new TwitchUser({ twitchId: x.id, twitchName: x.login, payload: x }));
 }
 
-async function save(docs: TwitchUserDoc[]): Promise<void> {
+async function save(docs: TwitchUserDocument[]): Promise<void> {
   await TwitchUser.bulkSave(docs).catch();
 }
 

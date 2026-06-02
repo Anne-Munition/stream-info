@@ -5,7 +5,7 @@ async function add(postId: string): Promise<void> {
 }
 
 async function remove(postId: string): Promise<void> {
-  await RedditPost.findOneAndRemove({ postId });
+  await RedditPost.findOneAndDelete({ postId });
 }
 
 async function has(postId: string): Promise<boolean> {

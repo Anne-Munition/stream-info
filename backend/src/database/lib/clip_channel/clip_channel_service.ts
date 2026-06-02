@@ -5,7 +5,7 @@ async function add(channelId: string, channelName: string): Promise<void> {
 }
 
 async function remove(channelId: string): Promise<void> {
-  await ClipChannel.findOneAndRemove({ channelId });
+  await ClipChannel.findOneAndDelete({ channelId });
 }
 
 async function has(channelId: string): Promise<boolean> {

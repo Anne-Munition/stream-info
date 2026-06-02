@@ -3,11 +3,12 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "Node16",
+    "rootDir": "./src",
     "outDir": "./dist",
     "removeComments": true,
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "esModuleInterop": true,
     "types": ["node", "jest"],
     "skipLibCheck": true,

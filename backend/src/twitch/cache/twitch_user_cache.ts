@@ -1,5 +1,4 @@
 import TwitchUserService from '../../database/lib/twitch_user';
-import { TwitchUserDoc } from '../../database/lib/twitch_user/twitch_user_model';
 import logger from '../../logger';
 import twitchApi from '../twitch_api';
 
@@ -52,7 +51,7 @@ export default async (identities: string[]): Promise<TwitchUser[]> => {
   // Delete expired docs from database
   const expiredDocs = usersInDatabase
     .filter((x) => new Date(x.expires).valueOf() <= time)
-    .map((x) => x._id);
+    .map((x) => String(x._id));
   logger.debug(`${expiredDocs.length} expired user docs found`);
   if (expiredDocs.length > 0) {
     await TwitchUserService.remove(expiredDocs);
@@ -60,7 +59,7 @@ export default async (identities: string[]): Promise<TwitchUser[]> => {
   }
 
   // Create and save new docs
-  let docs: TwitchUserDoc[] = [];
+  let docs: ReturnType<typeof TwitchUserService.create> = [];
   logger.debug(`${twitchResults.length} new user docs to save`);
   if (twitchResults.length > 0) {
     docs = TwitchUserService.create(twitchResults);

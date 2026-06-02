@@ -35,11 +35,11 @@ export default async (stream: TwitchStream | undefined) => {
   const hasGame = games.find((g) => g.id === stream.game_id);
   if (hasGame) {
     // Game in list already, remove it
-    await LastGameService.remove(hasGame._id);
+    await LastGameService.remove(String(hasGame._id));
   } else if (games.length === 5) {
     // We are about to add an entry and the list is already at 5 entries
     // Delete the last entry
-    await LastGameService.remove(games[4]._id);
+    await LastGameService.remove(String(games[4]._id));
   }
   await LastGameService.add(stream.game_id, stream.game_name);
 };

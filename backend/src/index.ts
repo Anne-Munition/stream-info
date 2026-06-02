@@ -12,7 +12,7 @@ let _app: { stop: () => Promise<void>; start: () => Promise<void> };
 
 async function loadApp(): Promise<{ stop: () => Promise<void>; start: () => Promise<void> }> {
   return (
-    (await import('./app.js')) as unknown as {
+    require('./app') as {
       default: { stop: () => Promise<void>; start: () => Promise<void> };
     }
   ).default;

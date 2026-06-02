@@ -64,4 +64,10 @@ module.exports = [
       'prettier/prettier': ['error', { printWidth: 100 }],
     },
   },
+  {
+    files: ['src/index.ts'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 ];

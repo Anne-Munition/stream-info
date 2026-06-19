@@ -1,13 +1,14 @@
 import User, { UserDoc } from './user_model';
+import sanitizeUserSettings from './sanitizeUserSettings';
 
 async function updateProfile(profile: any): Promise<UserDoc> {
   return User.findOneAndUpdate({ twitchId: profile.id }, { profile }, { upsert: true, new: true });
 }
 
-async function updateSettings(id: string, settings: any): Promise<void> {
+async function updateSettings(id: string, settings: Partial<UserSettings>): Promise<void> {
   const user = await getUser(id);
   if (!user) return;
-  user.settings = Object.assign({}, user.settings, settings);
+  user.settings = sanitizeUserSettings(Object.assign({}, user.settings, settings));
   await user.save();
 }
 
@@ -18,7 +19,7 @@ async function getUser(id: string): Promise<UserDoc | null> {
 async function getUserSettings(id: string): Promise<UserSettings | null> {
   const user = await getUser(id);
   if (!user) return null;
-  return user.settings;
+  return sanitizeUserSettings(user.settings);
 }
 
 export default {

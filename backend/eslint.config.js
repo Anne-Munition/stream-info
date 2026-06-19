@@ -48,15 +48,6 @@ module.exports = [
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/ban-ts-comment': 'off',
       'import/no-unresolved': 'off',
-      'import/order': [
-        'error',
-        {
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
-        },
-      ],
       'import/first': 'error',
       'import/no-mutable-exports': 'error',
       'import/newline-after-import': 'error',

@@ -30,3 +30,11 @@ services:
       REDDIT_CLIENT_SECRET: ${REDDIT_CLIENT_SECRET}
       REDDIT_USERNAME: ${REDDIT_USERNAME}
       REDDIT_PASSWORD: ${REDDIT_PASSWORD}
+    networks:
+      default:
+      proxy:
+
+networks:
+  default:
+  proxy:
+    external: true

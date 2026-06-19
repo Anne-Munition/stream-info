@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(express.static(wwwDir));
 
-  app.all('*', (req, res, next) => {
+  app.all('/{*path}', (req, res, next) => {
     res.sendFile(path.join(wwwDir, 'index.html'));
   });
 }

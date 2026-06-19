@@ -46,7 +46,7 @@
         </v-col>
       </v-row>
       <HomeFooterCard><HoursTracking /></HomeFooterCard>
-     <!-- <HomeFooterCard><ChatToggles /></HomeFooterCard> -->
+      <!-- <HomeFooterCard><ChatToggles /></HomeFooterCard> -->
       <HomeFooterCard><ActionRow /></HomeFooterCard>
     </v-container>
   </v-footer>

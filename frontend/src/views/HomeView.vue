@@ -120,8 +120,8 @@ const tips = computed(() => store.state.tips);
   left: 0;
   width: 100%;
   height: 50%;
-  background: -webkit-linear-gradient(
-    top,
+  background: linear-gradient(
+    to bottom,
     rgba(20, 20, 20, 0) 0%,
     rgba(20, 20, 20, 0.75) 60%,
     rgba(20, 20, 20, 1) 100%

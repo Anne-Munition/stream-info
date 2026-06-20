@@ -16,9 +16,18 @@ const store = useStore();
 
 watch(
   () => store.state.appState.tokenInvalid,
-  (tokenInvalid) => {
+  (tokenInvalid, previousTokenInvalid) => {
     if (tokenInvalid && router.currentRoute.value.name !== 'Reauth') {
       router.push({ name: 'Reauth' });
+      return;
+    }
+
+    if (
+      tokenInvalid === false &&
+      previousTokenInvalid &&
+      router.currentRoute.value.name === 'Reauth'
+    ) {
+      router.replace({ name: 'Home' });
     }
   },
   { immediate: true },

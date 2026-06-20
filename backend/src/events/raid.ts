@@ -11,24 +11,37 @@ export default async (payload: RaidPayload): Promise<void> => {
   logger.info(`new raid - ${payload.username}`);
 
   // Get userdata for the display name and id of the raider
-  const [userData] = await twitchCache.getUsers([payload.username]).catch(() => []);
+  const [userData] = await twitchCache.getUsers([payload.username]).catch((err) => {
+    logger.warn(`failed to fetch raid user data for ${payload.username}: ${String(err)}`);
+    return [];
+  });
   if (userData) {
     payload.displayName = userData.display_name;
-    const [channelData] = await twitchApi.getChannels([userData.id]).catch(() => []);
+    const [channelData] = await twitchApi.getChannels([userData.id]).catch((err) => {
+      logger.warn(`failed to fetch raid channel data for ${payload.username}: ${String(err)}`);
+      return [];
+    });
     if (channelData) payload.game = channelData.game_name;
-    const [video] = await twitchApi.getArchivedVideosByUser(userData.id, 1).catch(() => []);
+    const [video] = await twitchApi.getArchivedVideosByUser(userData.id, 1).catch((err) => {
+      logger.warn(`failed to fetch raid video data for ${payload.username}: ${String(err)}`);
+      return [];
+    });
     if (video) {
-      const now = DateTime.now();
-      const range = Duration.fromObject({ minutes: 10 });
-      const lowerBound = now.minus(range);
-      const upperBound = now.plus(range);
+      try {
+        const now = DateTime.now();
+        const range = Duration.fromObject({ minutes: 10 });
+        const lowerBound = now.minus(range);
+        const upperBound = now.plus(range);
 
-      const startTime = DateTime.fromISO(video.created_at);
-      const videoLength = Duration.fromISO(`PT${video.duration.toUpperCase()}`);
-      const endTime = startTime.plus(videoLength);
-      if (endTime > lowerBound && endTime < upperBound) {
-        payload.streamLength = videoLength.toFormat('hh:mm:ss');
-        payload.title = video.title;
+        const startTime = DateTime.fromISO(video.created_at);
+        const videoLength = Duration.fromISO(`PT${video.duration.toUpperCase()}`);
+        const endTime = startTime.plus(videoLength);
+        if (endTime > lowerBound && endTime < upperBound) {
+          payload.streamLength = videoLength.toFormat('hh:mm:ss');
+          payload.title = video.title;
+        }
+      } catch (err) {
+        logger.warn(`failed to parse raid video data for ${payload.username}: ${String(err)}`);
       }
     }
   }

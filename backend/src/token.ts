@@ -89,13 +89,7 @@ async function saveAWSKeys(nextKeys: Keys): Promise<void> {
     },
   };
 
-  try {
-    await axios.put(process.env.TOKEN_AWS_URL, nextKeys, config);
-  } catch (error: any) {
-    const status = error?.response?.status;
-    if (status !== 404 && status !== 405) throw error;
-    await axios.post(process.env.TOKEN_AWS_URL, nextKeys, config);
-  }
+  await axios.post(process.env.TOKEN_AWS_URL, nextKeys, config);
 }
 
 export async function updateUserToken(accessToken: string): Promise<void> {

@@ -4,6 +4,7 @@ import { Strategy as TwitchStrategy } from 'passport-twitch-new';
 import UserService from '../database/lib/user';
 import logger from '../logger';
 import { updateUserToken } from '../token';
+import * as tokenServices from '../tokenServices';
 
 const allowedIds = process.env.ALLOWED_IDS.split(',').map((x) => x.trim());
 const broadcasterId = allowedIds[0];
@@ -36,7 +37,14 @@ passport.use(
       }
 
       try {
-        if (req.session?.twitchAuthFlow === 'reauth') await updateUserToken(accessToken);
+        if (req.session?.twitchAuthFlow === 'reauth') {
+          await updateUserToken(accessToken);
+          await tokenServices.start().catch((error: Error) => {
+            logger.error(
+              `Failed to start Twitch token-dependent services after reauth: ${error.message}`,
+            );
+          });
+        }
         const user = await UserService.updateProfile(profile);
         done(null, user.twitchId);
       } catch (e) {

@@ -116,36 +116,36 @@ export async function updateUserToken(accessToken: string): Promise<void> {
 export async function validate(): Promise<void> {
   logger.debug('checking token validity');
   if (timer) clearTimeout(timer);
-  const awsKeys: Keys = await getAWSKeys();
-  // if (process.env.NODE_ENV === 'production') {
-  //awsKeys = await getAWSKeys();
-  //} else {
-  //   awsKeys = {
-  //    client_id: process.env.TWITCH_CLIENT_ID,
-  //   access_token: process.env.DEV_ACCESS_TOKEN,
-  //  };
-  // }
-  await twitchApi
-    .validateToken(awsKeys.access_token)
-    .then(({ scopes, login, user_id }) => {
-      if (hasScopes(scopes)) {
-        setValid(awsKeys, {
-          login,
-          user_id,
-        });
-      } else {
-        setInvalid();
-      }
-    })
-    .catch(({ response }) => {
-      if (response.status === 401) {
-        logger.warn('Twitch Token is invalid!');
-        setInvalid();
-      }
-    })
-    .finally(() => {
-      startTimer();
-    });
+  try {
+    const awsKeys: Keys = await getAWSKeys();
+    // if (process.env.NODE_ENV === 'production') {
+    //awsKeys = await getAWSKeys();
+    //} else {
+    //   awsKeys = {
+    //    client_id: process.env.TWITCH_CLIENT_ID,
+    //   access_token: process.env.DEV_ACCESS_TOKEN,
+    //  };
+    // }
+    const { scopes, login, user_id } = await twitchApi.validateToken(awsKeys.access_token);
+    if (hasScopes(scopes)) {
+      setValid(awsKeys, {
+        login,
+        user_id,
+      });
+    } else {
+      setInvalid();
+    }
+  } catch (error: any) {
+    const status = error?.status || error?.response?.status;
+    if (status === 401 || error?.code === 'TWITCH_TOKEN_INVALID') {
+      logger.warn('Twitch Token is invalid!');
+    } else {
+      logger.error(`Failed to validate Twitch token on startup: ${error?.message || error}`);
+    }
+    setInvalid();
+  } finally {
+    startTimer();
+  }
 }
 
 export function hasScopes(scopes: string[]): boolean {

@@ -18,7 +18,7 @@ async function loadApp(): Promise<{ stop: () => Promise<void>; start: () => Prom
   ).default;
 }
 
-// Don't start the rest of the app until we get the twitch token init data
+// Validate the broadcaster token first so app state reflects whether reauth is needed.
 token
   .validate()
   .then(loadApp)

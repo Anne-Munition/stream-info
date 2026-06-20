@@ -2,9 +2,11 @@ import type { Request } from 'express';
 import passport from 'passport';
 import { Strategy as TwitchStrategy } from 'passport-twitch-new';
 import UserService from '../database/lib/user';
+import logger from '../logger';
 import { updateUserToken } from '../token';
 
 const allowedIds = process.env.ALLOWED_IDS.split(',').map((x) => x.trim());
+const broadcasterId = allowedIds[0];
 
 interface TwitchProfile {
   id: string;
@@ -29,12 +31,20 @@ passport.use(
       done: Done,
     ) => {
       if (!allowedIds.includes(profile.id)) return done(null, false, { message: 'Not allowed.' });
+      if (req.session?.twitchAuthFlow === 'reauth' && profile.id !== broadcasterId) {
+        return done(null, false, { message: 'Broadcaster reauthorization required.' });
+      }
+
       try {
         if (req.session?.twitchAuthFlow === 'reauth') await updateUserToken(accessToken);
         const user = await UserService.updateProfile(profile);
         done(null, user.twitchId);
       } catch (e) {
-        done(e instanceof Error ? e : new Error('Unknown Twitch auth error'), false);
+        const error = e instanceof Error ? e : new Error('Unknown Twitch auth error');
+        logger.error(
+          `Twitch ${req.session?.twitchAuthFlow || 'login'} failed for user ${profile.id}: ${error.message}`,
+        );
+        done(error, false);
       }
     },
   ),

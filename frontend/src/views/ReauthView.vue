@@ -41,8 +41,7 @@
           </div>
         </div>
         <div v-if="route.query.error" class="error-banner" role="alert">
-          Reauthorization failed. Verify the Twitch account is allowed and that
-          the requested scopes were approved.
+          {{ errorMessage }}
         </div>
         <div class="actions">
           <v-btn color="primary" size="x-large" @click="reauth">
@@ -55,10 +54,18 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import peepoHey from '@/assets/images/peepoHey.gif';
 
 const route = useRoute();
+
+const errorMessage = computed(() => {
+  const reason = route.query.reason;
+  const detail = Array.isArray(reason) ? reason[0] : reason;
+  if (detail) return `Reauthorization failed. ${detail}`;
+  return 'Reauthorization failed. Sign in with the broadcaster Twitch account and confirm the requested scopes were approved.';
+});
 
 function reauth() {
   window.location.href = '/api/auth/reauth';

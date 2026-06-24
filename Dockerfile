@@ -35,6 +35,7 @@ ENV NODE_ENV=production
 COPY --from=pnpm_prod /app/node_modules ./node_modules
 COPY --from=pnpm_prod /app/backend/node_modules ./backend/node_modules
 COPY --from=backend_builder /app/backend/dist ./backend/dist
+COPY --from=backend_builder /app/backend/public ./backend/public
 COPY --from=frontend_builder /app/frontend/dist ./frontend/dist
 
 EXPOSE 3000

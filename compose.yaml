@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/anne-munition/stream-info:latest
+    image: ghcr.io/anne-munition/stream-info:fix-reddit-log-spam
     container_name: stream-info
     restart: unless-stopped
     ports:

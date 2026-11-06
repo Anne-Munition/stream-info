@@ -1,24 +1,25 @@
 import axios from 'axios';
-import { SubmissionStream } from 'snoostorm';
+import { Poll } from 'snoostorm';
 import Snoowrap from 'snoowrap';
 import RedditPostService from './database/lib/reddit_post';
 import logger from './logger';
+import { withBackoff } from './reddit_poll';
 
 const socialNotificationsRoleId = '1343660317841948694';
 const goLiveNotificationsRoleId = '1343659876253175849';
 
 const r = new Snoowrap({
-  userAgent: 'StreamInfo',
+  userAgent: `node:stream-info:1.0.0 (by /u/${process.env.REDDIT_USERNAME})`,
   clientId: process.env.REDDIT_CLIENT_ID,
   clientSecret: process.env.REDDIT_CLIENT_SECRET,
   username: process.env.REDDIT_USERNAME,
   password: process.env.REDDIT_PASSWORD,
 });
 
-const submissions = new SubmissionStream(r, {
-  subreddit: 'annemunition',
-  limit: 5,
-  pollTime: 10000,
+const submissions = new Poll<Snoowrap.Submission>({
+  frequency: 10000,
+  identifier: 'id',
+  get: withBackoff(() => r.getNew('annemunition', { limit: 5 })),
 });
 
 submissions.on('item', async (post) => {
